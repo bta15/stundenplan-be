@@ -32,10 +32,6 @@ fun Application.configureRouting() {
             var klasse = Klasse(1, "1a", listOf(fach))
             val schule = Schule("Meine Schule", Schulform.Grundschule, listOf(klasse))
 
-            val text = "hier wird der Stundenplan sein!"
-            val type = ContentType.parse("text/html")
-
-//            call.respondText(text, type)
             call.respond(schule)
         }
     }

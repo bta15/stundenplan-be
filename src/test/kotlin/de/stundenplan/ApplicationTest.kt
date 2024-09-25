@@ -1,4 +1,4 @@
-package com.example
+package de.stundenplan
 
 import com.example.plugins.*
 import io.ktor.client.request.*

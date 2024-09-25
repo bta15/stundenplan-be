@@ -1,6 +1,7 @@
-package com.example
+package de.stundenplan
 
-import com.example.plugins.*
+import de.stundenplan.plugins.configureRouting
+import de.stundenplan.plugins.configureSerialization
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package com.example.plugins
+package de.stundenplan.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

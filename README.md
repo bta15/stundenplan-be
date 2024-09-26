@@ -1,4 +1,4 @@
-# Stundenplan-Backend
+# Stundenplan-Backend <span style="color:red"> [ in Arbeit ]</span>
 
 Hier entsteht eine Stundenplan-API, umgesetzt mit Kotlin und Ktor.
 

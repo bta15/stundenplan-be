@@ -20,6 +20,9 @@ fun Application.configureRouting() {
             resources("static")
         }
 
+        staticResources("/content", "mystaticcontent")
+
+
         get("/irgendwas") {
             val text = "<h1>hier ist der irgendwas-Endpunkt</h1>"
             val type = ContentType.parse("text/html")

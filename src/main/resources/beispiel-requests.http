@@ -1,0 +1,35 @@
+###
+GET http://localhost:8081/schule
+
+###
+GET http://localhost:8081/schule/bySchulform/Oberschule
+
+###
+GET http://localhost:8081/schule/bySchulform/Grundschule
+Accept: application/json
+
+
+###
+POST http://localhost:8081/schule
+Content-Type: application/json
+
+{
+  "name": "Schule 2",
+  "schulform": "Grundschule",
+  "klassen": [
+    {
+      "bezeichnung": "1b",
+      "klassenstufe": 1,
+      "unterrichtsfachList": [
+        {
+          "name": "Sport",
+          "anzahlProWoche": 2
+        }
+      ]
+    }
+  ]
+}
+
+
+###
+DELETE http://localhost:8081/schule/rrr

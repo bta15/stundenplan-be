@@ -1,38 +1,41 @@
-package com.example
+package de.stundenplan
 
+import Schulform
+import com.jayway.jsonpath.DocumentContext
+import com.jayway.jsonpath.JsonPath
+import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import org.junit.Assert
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class ApplicationTest {
     @Test
-    fun testRoot() = testApplication {
-        client.get("/").apply {
-            assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
+    fun schulenCanBeFound() = testApplication {
+        val jsonDoc = client.getAsJsonPath("/schule")
+
+        val result: List<String> = jsonDoc.read("$[*].name")
+        assertEquals("Beispiel-Schule 1", result[0])
+    }
+
+    @Test
+    fun schulenCanBeFoundBySchulform() = testApplication {
+        val schulform = Schulform.Grundschule
+        val jsonDoc = client.getAsJsonPath("/schule/bySchulform/$schulform")
+
+        val result: List<String> =
+            jsonDoc.read("$[?(@.schulform == '$schulform')].name")
+        assertEquals(1, result.size)
+
+        assertEquals("Beispiel-Schule 1", result[0])
+    }
+
+    suspend fun HttpClient.getAsJsonPath(url: String): DocumentContext {
+        val response = this.get(url) {
+            accept(ContentType.Application.Json)
         }
-    }
-
-    @Test
-    fun testIrgendwas() = testApplication {
-        val response = client.get("/irgendwas")
-
-        Assert.assertEquals(HttpStatusCode.OK, response.status)
-        Assert.assertEquals("<h1>hier ist der irgendwas-Endpunkt</h1>", response.bodyAsText())
-    }
-
-    @Test
-    fun testStundenplan() = testApplication {
-        val response = client.get("/stundenplan")
-
-        Assert.assertEquals(HttpStatusCode.OK, response.status)
-        Assert.assertEquals("json", response.contentType()?.contentSubtype)
-
-        assertContains(response.bodyAsText(), "\"name\":\"Meine Schule\"")
+        return JsonPath.parse(response.bodyAsText())
     }
 }

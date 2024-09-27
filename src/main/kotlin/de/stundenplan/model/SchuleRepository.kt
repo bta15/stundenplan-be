@@ -5,7 +5,7 @@ import Schule
 import Schulform
 import Unterrichtsfach
 
-object StundenplanRepository {
+object SchuleRepository {
     private val faecher = mutableListOf(Unterrichtsfach("Deutsch", 3))
     private val klassen1 = mutableListOf(Klasse(1, "1a", faecher))
     private val schulen = mutableListOf(
@@ -13,10 +13,10 @@ object StundenplanRepository {
 
         )
 
-    fun schulen(): List<Schule> = schulen
+    fun allSchulen(): List<Schule> = schulen
 
-    fun schulenBySchulform(priority: Schulform) = schulen.filter {
-        it.schulform == priority
+    fun schulenBySchulform(schulform: Schulform) = schulen.filter {
+        it.schulform == schulform
     }
 
     fun schuleByName(name: String) = schulen.find {

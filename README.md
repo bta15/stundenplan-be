@@ -1,6 +1,6 @@
 # Stundenplan-Backend [ in Arbeit ]
 
-Hier entsteht eine Stundenplan-API, umgesetzt mit Kotlin und Ktor.
+Hier entsteht eine stark vereinfachte Stundenplan-API, umgesetzt mit Kotlin und Ktor.
 
 #### Eingaben:
 

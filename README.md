@@ -2,14 +2,14 @@
 
 Hier entsteht eine stark vereinfachte Stundenplan-API, umgesetzt mit Kotlin und Ktor.
 
-#### Eingaben:
+#### Schule
 
+##### Eingaben:
 - Name der Schule
 - Schulform: Grundschule, Oberschule
 - Klassen: 1-6 oder 7-12 je nach Schulform (konkrete Klassen z.B. 1a, 5b)
 
-#### Ausgabe:
-
+##### Ausgabe:
 Stundenplan, ungefähr so:
 
 ```
@@ -23,17 +23,18 @@ Stundenplan, ungefähr so:
 
 #### Initial vorhanden:
 
-- Fächer:
+- [ ] Fächer:
   - verfügbar für Klassen: 1-12
-- eine Beispiel-Schule mit allen nötigen Einträgen
+- [ ] eine Beispiel-Schule mit allen nötigen Einträgen
 
 #### Speicherung der Daten:
 
-- eine InMemory DB (H2 usw.)
+- eine H2 In-Memory DB
 
 #### TODOs
 
-- [ ] InMemory-DB
+- [ ] Liste von Klassen bei Schule in der DB speichern (siehe TODOs im Code)
+- [x] InMemory-DB
 - [ ] weitere Endpoints
 - [ ] Lehrer:
   - [ ] Fächer (die sie unterrichten könnten)

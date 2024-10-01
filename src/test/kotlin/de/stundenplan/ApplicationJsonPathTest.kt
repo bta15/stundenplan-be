@@ -12,7 +12,8 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ApplicationTest : TestData() {
+
+class ApplicationJsonPathTest : TestData() {
 
     @BeforeTest
     fun setup() = testApplication {

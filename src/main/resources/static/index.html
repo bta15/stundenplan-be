@@ -1,7 +1,65 @@
 <html>
- <head>
- </head>
- <body>
-   <h1>Hello Ktor!</h1>
- </body>
+<head>
+    <title>A Simple SPA For Tasks</title>
+    <script type="application/javascript">
+        function fetchAndDisplaySchulen() {
+            fetchSchulen()
+                .then(schulen => displaySchulen(schulen))
+        }
+
+        function fetchSchulen() {
+            return fetch(
+                "/schule",
+                {
+                    headers: {'Accept': 'application/json'}
+                }
+            ).then(resp => resp.json());
+        }
+
+        function displaySchulen(schulen) {
+            const schulenTableBody = document.getElementById("schulenTableBody")
+            schulen.forEach(schule => {
+                const newRow = schuleRow(schule);
+                schulenTableBody.appendChild(newRow);
+            });
+        }
+
+        function schuleRow(schule) {
+            return tr([
+                td(schule.name),
+                td(schule.schulform),
+                td(schule.klassen)
+            ]);
+        }
+
+        function tr(children) {
+            const node = document.createElement("tr");
+            children.forEach(child => node.appendChild(child));
+            return node;
+        }
+
+        function td(text) {
+            const node = document.createElement("td");
+            node.appendChild(document.createTextNode(text));
+            return node;
+        }
+    </script>
+</head>
+<body>
+<h1>Stundenplan-Erstellung</h1>
+<form action="javascript:fetchAndDisplaySchulen()">
+    <input type="submit" value="Schulen anzeigen">
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Schulform</th>
+        <th>Klassen</th>
+    </tr>
+    </thead>
+    <tbody id="schulenTableBody">
+    </tbody>
+</table>
+</body>
 </html>

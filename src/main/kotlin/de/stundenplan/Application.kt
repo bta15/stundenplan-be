@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     val schuleRepository = SchuleRepository()
-    configureSerialization(schuleRepository)
+    configureSerialization()
     configureDatabases()
-    configureRouting()
+    configureRouting(schuleRepository)
 }

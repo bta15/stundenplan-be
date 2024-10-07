@@ -1,5 +1,6 @@
 package de.stundenplan
 
+import de.stundenplan.model.KlasseRepository
 import de.stundenplan.model.SchuleRepository
 import de.stundenplan.plugins.configureDatabases
 import de.stundenplan.plugins.configureRouting
@@ -12,7 +13,8 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     val schuleRepository = SchuleRepository()
+    val klasseRepository = KlasseRepository()
     configureSerialization()
     configureDatabases()
-    configureRouting(schuleRepository)
+    configureRouting(schuleRepository, klasseRepository)
 }

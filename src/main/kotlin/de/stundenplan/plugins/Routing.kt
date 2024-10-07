@@ -2,6 +2,7 @@ package de.stundenplan.plugins
 
 import Schule
 import Schulform
+import de.stundenplan.model.IKlasseRepository
 import de.stundenplan.model.ISchuleRepository
 import io.ktor.http.*
 import io.ktor.serialization.*
@@ -13,7 +14,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 
-fun Application.configureRouting(schuleRepository: ISchuleRepository) {
+fun Application.configureRouting(schuleRepository: ISchuleRepository, klasseRepository: IKlasseRepository) {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
             call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
@@ -59,10 +60,31 @@ fun Application.configureRouting(schuleRepository: ISchuleRepository) {
                     call.respond(HttpStatusCode.BadRequest)
                 }
             }
-
+            get("/bySchulId/{schulId}") {
+                val schulIdAsText = call.parameters["schulId"]
+                if (schulIdAsText == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                try {
+                    val schule = schuleRepository.schuleBySchulId(schulIdAsText)
+                    if (schule == null) {
+                        call.respond(HttpStatusCode.NotFound)
+                        return@get
+                    }
+                    call.respond(schule)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
             post {
                 try {
                     val schule = call.receive<Schule>()
+                    val existingSchule = schuleRepository.schuleBySchulId(schule.schulId)
+                    if (existingSchule != null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                    }
+
                     schuleRepository.addSchule(schule)
                     call.respond(HttpStatusCode.NoContent)
                 } catch (ex: IllegalStateException) {
@@ -79,11 +101,18 @@ fun Application.configureRouting(schuleRepository: ISchuleRepository) {
                     return@delete
                 }
 
-                if (schuleRepository.removeSchule(name)) {
+                if (schuleRepository.removeSchuleBySchulId(name)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
+            }
+        }
+
+        route("/klasse") {
+            get {
+                val klassen = klasseRepository.allKlassen()
+                call.respond(klassen)
             }
         }
 

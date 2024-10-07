@@ -25,7 +25,7 @@ Stundenplan, ungefähr so:
 
 - [ ] Fächer:
   - verfügbar für Klassen: 1-12
-- [ ] eine Beispiel-Schule mit allen nötigen Einträgen
+- [x] eine Beispiel-Schule mit allen nötigen Einträgen (siehe POST in beispiel-requests.http)
 
 #### Speicherung der Daten:
 
@@ -33,8 +33,7 @@ Stundenplan, ungefähr so:
 
 #### TODOs
 
-- [ ] Liste von Klassen bei Schule in der DB speichern (siehe TODOs im Code)
-- [x] InMemory-DB
+- [ ] Liste von Fächern bei Klasse in der DB speichern (siehe TODOs im Code)
 - [ ] weitere Endpoints
 - [ ] Lehrer:
   - [ ] Fächer (die sie unterrichten könnten)
@@ -42,3 +41,4 @@ Stundenplan, ungefähr so:
   - [ ] Klassenleiter für: Klasse 1-12 (Auswahl an bereits vorhandenen Klassen)
 - [ ] minimale Logik für Stundenplan + Endpoints
 - [ ] CRUD für alles, was nötig ist
+- [x] InMemory-DB
